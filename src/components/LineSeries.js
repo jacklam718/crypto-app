@@ -4,7 +4,7 @@ import * as scale from 'd3-scale';
 import * as array from 'd3-array';
 import * as shape from 'd3-shape';
 
-export default class Graph extends React.Component {
+export default class LineSeries extends React.Component {
   static defaultProps = {
     curve: 'curveLinear',
     contentInset: {},

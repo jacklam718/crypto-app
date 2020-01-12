@@ -1,26 +1,21 @@
+import produce from 'immer';
 import { handleActions } from 'redux-actions';
 
 const initialState = {
   pendingRequests: {
-    symbols: false,
+    symbols: 0,
   },
 };
 
 export default handleActions({
   REST_START: (state, action) => {
-    return {
-      pendingRequests: {
-        ...state.pendingRequests,
-        [action.payload.label]: true,
-      },
-    }
+    return produce(state, draftState => {
+      draftState.pendingRequests[action.payload.label]++;
+    });
   },
   REST_FINISH: (state, action) => {
-    return {
-      pendingRequests: {
-        ...state.pendingRequests,
-        [action.payload.label]: false,
-      },
-    }
+    return produce(state, draftState => {
+      draftState.pendingRequests[action.payload.label]--;
+    });
   }
 }, initialState);

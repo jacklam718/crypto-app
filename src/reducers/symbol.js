@@ -1,17 +1,10 @@
+import produce from 'immer';
 import { handleActions } from 'redux-actions';
 
 const initialState = {
   symbols: [],
   // mock
   watchlist: [
-    'bitcoin',
-    'ethereum',
-    'ripple',
-    'tether',
-    'bitcoin',
-    'litecoin',
-    'eos',
-    'binance',
     'bitcoin',
     'cosmos',
     'tezos',
@@ -45,7 +38,6 @@ const initialState = {
     'holo',
     'dai',
     'augur',
-    'bitcoin',
     'nano',
     'omisego',
     'abbc',
@@ -56,7 +48,6 @@ const initialState = {
     'enjin',
     'theta',
     'komodo',
-    'bitcoin',
     'icon',
     'iostoken',
     'verge',
@@ -109,49 +100,18 @@ const initialState = {
 
 export default handleActions({
   SET_SYMBOLS: (state, action) => {
-    // need to refactor. maybe use immutable js
-    return {
-      ...state,
-      symbols: action.payload.data.map(symbol => ({
-        ...symbol,
-        updatedAt: Date.now(),
-        histories: symbol.histories.map(item => ({
-          ...item,
-          updatedAt: Date.now(),
-        })),
-      })),
-    };
+    return produce(state, draftState => {
+      draftState.symbols = action.payload.symbols;
+    });
   },
   UPDATE_SYMBOLS_PRICE: (state, action) => {
-    // need to refactor. maybe use immutable js
-    const newSymbols = [].concat(state.symbols);
-    for (let id in action.payload.data) {
-      const indexOfSymbol = newSymbols.findIndex(symbol => symbol.id === id);
-      if (indexOfSymbol !== -1) {
-        const newSymbol = {
-          ...newSymbols[indexOfSymbol],
-          priceUsd: Number(action.payload.data[id]).toFixed(2),
-          updatedAt: Date.now(),
-        };
-        const newHistories = [].concat(newSymbol.histories);
-        const lastRecord = { ...newHistories[newHistories.length-1] }
-        const updatedMoreThan2Minutes = (Date.now() - lastRecord.updatedAt) > (2 * 60 * 1000);
-        if (updatedMoreThan2Minutes) {
-          newHistories.shift();
-          newHistories.push({ 
-            ...lastRecord,
-            x: lastRecord.x + 1,
-            y: Number(action.payload.data[id]),
-            updatedAt: Date.now(),
-          });
-        }
-        newSymbol.histories = newHistories;
-        newSymbols[indexOfSymbol] = newSymbol;  
-      }
-    }
-    return {
-      ...state,
-      symbols: newSymbols,
-    };
+    const prices = action.payload.prices;
+    return produce(state, draftState => {
+      draftState.symbols.forEach(symbol => {
+        symbol.priceUsd = prices[symbol.id]
+          ? Number(prices[symbol.id]).toFixed(2)
+          : symbol.priceUsd;
+      });
+    });
   },
 }, initialState);

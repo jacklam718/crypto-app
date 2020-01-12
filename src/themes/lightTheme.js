@@ -1,17 +1,9 @@
 export default {
   colors: {
     background: '#fff',
-    buttonPrimaryFill: '#1d1f1f',
-    buttonPrimaryText: '#fff',
-    buttonPrimarySpinnerFill: '#fff',
-    buttonBorderedText: '#1d1f1f',
-    buttonBorderedBorder: '#1d1f1f',
-    buttonBorderedSpinnerFill: '#1d1f1f',
-    buttonMinimalText: '#1d1f1f',
-    buttonMinimalSpinnerFill: '1d1f1f',
     headerNavigationFill: '#000',
     listSectionHeaderFill: '#fff',
-    snackbarFill: '#1d1f1f',
+    snackbarFill: '#000',
     snackbarText: '#fff',
     iconFill: '#1d1f1f',
     contentPrimary: '#000',

@@ -16,8 +16,8 @@ export const fetchSymbols = ids => {
       uri: '/v2/assets',
       label: 'symbols',
       ids,
-      onSuccess: data => [
-        { type: 'SET_SYMBOLS', payload: { data } },
+      onSuccess: symbols => [
+        { type: 'SET_SYMBOLS', payload: { symbols } },
       ],
       transformResponse: transformSymbolsFormat,
     },
@@ -29,8 +29,8 @@ export const subscribeSymbolsPrice = ids => ({
   payload: {
     uri: `/prices?assets=${ids}`,
     channel: 'symbols_price',
-    onMessage: data => [
-      { type: 'UPDATE_SYMBOLS_PRICE', payload: { data } },
+    onMessage: prices => [
+      { type: 'UPDATE_SYMBOLS_PRICE', payload: { prices } },
     ],
     onConnected: () => showNotification('Websocket Connected'),
     onDisconnected: () => showNotification('Websocket Disconnected'),
