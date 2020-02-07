@@ -101,11 +101,11 @@ const initialState = {
 export default handleActions({
   SET_SYMBOLS: (state, action) => {
     return produce(state, draftState => {
-      draftState.symbols = action.payload.symbols;
+      draftState.symbols = action.symbols;
     });
   },
   UPDATE_SYMBOLS_PRICE: (state, action) => {
-    const prices = action.payload.prices;
+    const prices = action.prices;
     return produce(state, draftState => {
       draftState.symbols.forEach(symbol => {
         symbol.priceUsd = prices[symbol.id]

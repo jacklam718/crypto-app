@@ -10,12 +10,12 @@ const initialState = {
 export default handleActions({
   REST_START: (state, action) => {
     return produce(state, draftState => {
-      draftState.pendingRequests[action.payload.label]++;
+      draftState.pendingRequests[action.label]++;
     });
   },
   REST_FINISH: (state, action) => {
     return produce(state, draftState => {
-      draftState.pendingRequests[action.payload.label]--;
+      draftState.pendingRequests[action.label]--;
     });
   }
 }, initialState);

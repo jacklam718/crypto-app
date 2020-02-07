@@ -7,7 +7,7 @@ function createSocketChannel(url) {
   return eventChannel(emit => {
     const socket = Object.assign(new WebSocket(url), {
       onmessage({ data }) {
-        emit({ type: 'WS_MESSAGE', payload: { data: JSON.parse(data) } });
+        emit({ type: 'WS_MESSAGE', data: JSON.parse(data) });
       },
       onopen() {
         emit({ type: 'WS_CONNECTED' });
@@ -28,13 +28,13 @@ function createSocketChannel(url) {
 }
 
 function onUnsubscribe(action) {
-  const { channel } = action.payload;
+  const { channel } = action;
   channels[channel].close();
   delete channels[channel];
 }
 
 function *onSubscribe(action) {
-  const { uri, channel, onMessage, onConnected, onDisconnected, onError } = action.payload;
+  const { uri, channel, onMessage, onConnected, onDisconnected, onError } = action;
   // hardcode url. need to refactor
   // connect to websocket server
   const url = `wss://ws.coincap.io${uri}`;
@@ -43,8 +43,8 @@ function *onSubscribe(action) {
 
   // listen and process incoming events
   while (true) {
-    const { type, payload } = yield take(socketChannel);
-    yield put({ type, payload: { ...payload, channel } });
+    const { type, ...payload } = yield take(socketChannel);
+    yield put({ type, ...payload, channel });
     if (type === 'WS_MESSAGE' && onMessage) {
       yield put(onMessage(payload.data));
     } else if (type === 'WS_CONNECTED' && onConnected) {
