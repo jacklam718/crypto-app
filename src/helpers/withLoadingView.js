@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, ActivityIndicator, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
-import { styled, ConfigContext } from 'react-native-base-components';
+import { styled } from 'react-native-base-components';
 
 const Container = styled(View, ({ theme }) => ({
   zIndex: -1,

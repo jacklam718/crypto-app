@@ -1,21 +1,14 @@
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import reducers from '../reducers';
-import array from './array';
 import rootSaga from '../sagas';
+import array from './array';
 
 const saga = createSagaMiddleware();
 
-const middlewares = [
-  array,
-  saga,
-];
-
 const store = createStore(
   combineReducers(reducers),
-  compose(
-    applyMiddleware(...middlewares),
-  ),
+  compose(applyMiddleware(array, saga)),
 );
 
 saga.run(rootSaga);

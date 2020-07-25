@@ -5,7 +5,7 @@ import { List, ListSectionHeader } from 'react-native-base-components/src/list';
 import { Label3 } from 'react-native-base-components/src/text';
 
 import actions from '../actions';
-import withLoadingView from '../utils/withLoadingView';
+import withLoadingView from '../helpers/withLoadingView';
 import SymbolItem from './SymbolItem';
 
 const ListWithLoadingView = withLoadingView(Animated.SectionList, { label: 'symbols' });

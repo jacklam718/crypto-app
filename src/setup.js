@@ -11,17 +11,11 @@ import themes from './themes';
 
 const setup = () => {
   return () => {
-    const [theme, setTheme] = React.useState(themes['dark']);
-
     const colorScheme = useColorScheme();
-    React.useEffect(() => {
-      setTheme(themes[colorScheme]);
-    }, [colorScheme]);    
-
     return (
       <Provider store={store}>
         <AppearanceProvider>
-          <ConfigProvider config={{ theme }}>
+          <ConfigProvider config={{ theme: themes[colorScheme] }}>
             <App />
             <SnackbarPortal />
           </ConfigProvider>

@@ -1,5 +1,5 @@
 import { bindActionCreators } from 'redux';
-import { transformSymbolsFormat } from '../utils/responseTransformers';
+import { transformSymbolsFormat } from '../helpers/responseTransformers';
 import store from '../store';
 
 export const showNotification = message => ({
