@@ -1,28 +1,28 @@
-import React from 'react';
-import { Provider } from 'react-redux';
 import { registerRootComponent } from 'expo';
-import { SnackbarPortal } from 'react-native-base-components/src/snackbar';
+import { useMemo } from 'react';
+import { StatusBar, useColorScheme } from 'react-native';
+import { QueryClientProvider } from '@tanstack/react-query';
 import ConfigProvider from 'react-native-base-components/src/helpers/ConfigProvider';
-import { AppearanceProvider, useColorScheme } from 'react-native-appearance';
-
+import { Snackbar } from 'react-native-base-components/src/snackbar';
 import App from './App';
-import store from './store';
 import themes from './themes';
+import queryClient from './queryClient';
 
 const setup = () => {
   return () => {
     const colorScheme = useColorScheme();
+    const theme = useMemo(() => themes[colorScheme], [colorScheme]);
+
     return (
-      <Provider store={store}>
-        <AppearanceProvider>
-          <ConfigProvider config={{ theme: themes[colorScheme] }}>
-            <App />
-            <SnackbarPortal />
-          </ConfigProvider>
-        </AppearanceProvider>
-      </Provider>
+      <QueryClientProvider client={queryClient}>
+        <ConfigProvider config={{ theme }}>
+          <StatusBar barStyle="light-content" />
+          <App />
+          <Snackbar />
+        </ConfigProvider>
+      </QueryClientProvider>
     );
   };
-}
+};
 
 registerRootComponent(setup());

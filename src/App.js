@@ -1,22 +1,27 @@
 import React from 'react';
-import { View } from 'react-native';
-import { Header } from 'react-native-base-components/src/header';
-import { withStyled } from 'react-native-base-components/';
-import SymbolList from './components/SymbolList';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { TokenListScreen, TokenDetailsScreen } from './screens';
 
-const App = withStyled(({ theme }) => (
-  <View style={{ backgroundColor: theme.colors.background }}>
-    <Header
-      title="Crypto"
-      overrides={{
-        Root: { style: { position: 'relative' } },
-        Content: { style: { paddingHorizontal: 24 } },
-        TitleText: { style: { fontSize: 30 } },
-        LeftItem: { component: () => null }
-      }}
-    />
-    <SymbolList />
-  </View>
-));
+const Stack = createNativeStackNavigator();
+
+const App = () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <Stack.Screen
+          name="TokenList"
+          options={{ title: 'Crypto' }}
+          component={TokenListScreen}
+        />
+        <Stack.Screen name="TokenDetails" component={TokenDetailsScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
 
 export default App;

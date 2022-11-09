@@ -1,4 +1,6 @@
-export default {
+import creator from 'react-native-base-components/src/themes/creator';
+
+export default creator({
   colors: {
     background: '#000',
     headerNavigationFill: '#000',
@@ -11,6 +13,24 @@ export default {
     contentTertiary: '#4f5152',
     contentPositive: '#47fb9b',
     contentNegative: '#ed4369',
+    searchbarFill: '#000',
+    searchbarInputFill: '#1a1c1e',
+    searchbarInputText: '#fff',
+    searchbarInputPlaceholder: '#8c8e92',
+    searchbarCancelButtonText: '#0070fe',
+    inputText: '#fff',
+    inputFill: '#1a1c1e',
+    inputFillFocus: '#1a1c1e',
+    inputFillError: '#541A14',
+    inputFillPositive: '#0D4020',
+    graphStrokeFill: '#5891f8',
+    graphAreaFill: '#5891f8',
+    graphBarFill: '#fff',
+    menuFill: '#000',
+    menuTextDefault: '#9c9e9e',
+    menuTextSelected: '#fff',
+    segmentedControlSelectedFill: '#fff',
+    segmentedControlSelectedText: '#000',
   },
   barStyle: 'light-content',
-}
+});
